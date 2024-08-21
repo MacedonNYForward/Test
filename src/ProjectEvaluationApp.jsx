@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Select } from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
 import axios from 'axios';
-import { Card, CardHeader, CardContent, CardFooter } from './components/ui/card';
-import { Button } from './components/ui/button';
-import { Input } from './components/ui/input';
-import { Select } from './components/ui/select';
-import { Checkbox } from './components/ui/checkbox';
 
 const projects = [
   {
@@ -105,6 +106,8 @@ const ProjectEvaluationApp = () => {
       name,
       ...projects.map((project, index) => ({
         title: project.title,
+        location: project.location,
+        nyfRequest: project.nyfRequest,
         selected: selectedProjects.includes(index),
         ...evaluations[index]
       }))
