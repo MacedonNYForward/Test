@@ -113,11 +113,17 @@ const ProjectEvaluationApp = () => {
           <strong>Step 1:</strong> You will evaluate each project based on how well it aligns with the evaluation criteria established by the State and the LPC, using a scale of High, Medium, Low. Your answers will be aggregated and used to sort each project into three categories: High Rating projects that you scored the highest, Medium Rating projects that you scored moderately-well, and Low Rating projects that you scored the lowest.
         </p>
         <p className="mb-4">
-          <strong>Step 2:</strong> You will go through the exercise of deciding which projects you want to fund. As you select projects, a calculator will automatically sum the total NY Forward Request amount. You will only be able to submit your survey if the total NY Forward Request amount is between $6 million to $8 million. Note: This is only an exercise. Your selections in this exercise are not definitive. There will be on-going discussions at the upcoming LPC meetings to narrow down the list of projects.
+          <strong>Step 2:</strong> You will go through the exercise of deciding which projects you want to fund. As you select projects, a calculator will automatically sum the total NY Forward Request amount. You will only be able to submit your survey if the total NY Forward Request amount is between $6 million to $8 million. 
+          </p>
+          <p className="mb-4">
+          <i>Note: This is only an exercise. Your selections in this exercise are not definitive. There will be on-going discussions at the upcoming LPC meetings to narrow down the list of projects.</i>
         </p>
         <h2 className="text-xl font-bold mb-2">How We Will Use This Data</h2>
         <p className="mb-4">
-          The evaluations from all LPC members will be aggregated to create an overall rating for each project, either High, Medium, or Low. At LPC Meeting 5, we will present which projects fell into each of the High Rating, Medium Rating, and Low Rating categories. This will help the LPC make decisions about which projects to keep under consideration for potential funding and which projects could be removed. Note: Your individual responses will remain anonymous. Other LPC members will not be able to see your answers.
+          The evaluations from all LPC members will be aggregated to create an overall rating for each project, either High, Medium, or Low. At LPC Meeting 5, we will present which projects fell into each of the High Rating, Medium Rating, and Low Rating categories. This will help the LPC make decisions about which projects to keep under consideration for potential funding and which projects could be removed. 
+          </p>
+          <p className="mb-4">
+          <i>  Note: Your individual responses will remain anonymous. Other LPC members will not be able to see your answers.</i>
         </p>
         <Input
           placeholder="Enter your name"
