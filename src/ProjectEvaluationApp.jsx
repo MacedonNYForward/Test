@@ -145,11 +145,11 @@ const ProjectEvaluationApp = () => {
     <Card className="w-full max-w-4xl mx-auto">
       <CardHeader>
         <h1 className="text-2xl font-bold">Step 1: Project Evaluation</h1>
-        <div className="bg-black text-white rounded-lg px-4 py-2 inline-block">
-          Project {currentProject + 1} of {projects.length}
-        </div>
       </CardHeader>
       <CardContent>
+        <div className="bg-gray-800 text-sm text-white rounded-lg px-4 py-2 inline-block">
+          Project {currentProject + 1} of {projects.length}
+        </div>
         <h2 className="text-xl font-bold mb-2">{projects[currentProject].title}</h2>
         <p className="text-sm mb-2">{projects[currentProject].location}</p>
         <p className="mb-4">{projects[currentProject].description}</p>
@@ -217,12 +217,12 @@ const ProjectEvaluationApp = () => {
         <h1 className="text-2xl font-bold">Step 2: Project Selection</h1>
       </CardHeader>
       <CardContent>
-        <h2 className="text-xl font-bold mb-2">Instruction</h2>
+        <h2 className="text-xl font-bold mb-2">Instructions</h2>
         <p className="mb-4">
           On the following page, you will select which projects you want to fund. You will see a box that shows "Your Rating" for each project, on a scale of High, Medium, Low. This rating is based on the evaluation you completed in Step 1. These ratings should help inform your decision-making about which projects to fund. As you select projects, a calculator will automatically sum the total NY Forward Request amount. You will only be able to submit your survey if the total NY Forward Request amount is between $6 million to $8 million.
         </p>
         <p className="mb-4">
-          Remember: This is only an exercise. Your selections in this exercise are not definitive. There will be on-going discussions at the upcoming LPC meetings to narrow down the list of projects.
+        <i>Remember: This is only an exercise. Your selections in this exercise are not definitive. There will be on-going discussions at the upcoming LPC meetings to narrow down the list of projects.</i>
         </p>
       </CardContent>
       <CardFooter className="flex justify-between">
