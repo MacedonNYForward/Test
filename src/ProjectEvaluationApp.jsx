@@ -111,7 +111,7 @@ const ProjectEvaluationApp = () => {
     ];
 
     try {
-      const response = await axios.post('https://script.google.com/macros/s/AKfycbxdCVmLQ6BTWw-DRknhP2ZlYdLElwc7OU7C_SQ9CO9t2LqV932BKHY4Nz8Pb_wTwx-DmQ/exec', dataToSubmit);
+      const response = await axios.post('https://script.google.com/macros/s/AKfycbyUky9HGq6RGi5LKvpCX0q4hoodvJbc515bTM2Sqj9ZuTkg_VI05GFNdQoTSRXxftYxbA/exec', dataToSubmit);
       if (response.data.result === 'success') {
         alert('Data submitted successfully!');
       } else {
