@@ -4,6 +4,7 @@ import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
 import { Select } from './components/ui/select';
 import { Checkbox } from './components/ui/checkbox';
+import { Check } from 'lucide-react';
 
 const projects = [
   {
@@ -99,6 +100,31 @@ const ProjectEvaluationApp = () => {
     });
   };
 
+  const isProjectEvaluated = (index) => {
+    return Object.keys(evaluations[index]).length === criteria.length;
+  };
+
+  const renderFooter = () => (
+    <footer className="mt-8 text-center text-gray-500">
+      Webster NY Forward
+    </footer>
+  );
+
+  const renderProjectDropdown = () => (
+    <Select
+      value={currentProject.toString()}
+      onValueChange={(value) => setCurrentProject(Number(value))}
+      className="mb-4"
+    >
+      {projects.map((project, index) => (
+        <option key={index} value={index.toString()}>
+          Project {index + 1}: {project.title}
+          {isProjectEvaluated(index) && <Check className="inline-block ml-2" size={16} />}
+        </option>
+      ))}
+    </Select>
+  );
+
   const renderIntroduction = () => (
     <Card className="w-full max-w-4xl mx-auto">
       <CardHeader>
@@ -114,16 +140,16 @@ const ProjectEvaluationApp = () => {
         </p>
         <p className="mb-4">
           <strong>Step 2:</strong> You will go through the exercise of deciding which projects you want to fund. As you select projects, a calculator will automatically sum the total NY Forward Request amount. You will only be able to submit your survey if the total NY Forward Request amount is between $6 million to $8 million. 
-          </p>
-          <p className="mb-4">
+        </p>
+        <p className="mb-4">
           <i>Note: This is only an exercise. Your selections in this exercise are not definitive. There will be on-going discussions at the upcoming LPC meetings to narrow down the list of projects.</i>
         </p>
         <h2 className="text-xl font-bold mb-2">How We Will Use This Data</h2>
         <p className="mb-4">
           The evaluations from all LPC members will be aggregated to create an overall rating for each project, either High, Medium, or Low. At LPC Meeting 5, we will present which projects fell into each of the High Rating, Medium Rating, and Low Rating categories. This will help the LPC make decisions about which projects to keep under consideration for potential funding and which projects could be removed. 
-          </p>
-          <p className="mb-4">
-          <i>  Note: Your individual responses will remain anonymous. Other LPC members will not be able to see your answers.</i>
+        </p>
+        <p className="mb-4">
+          <i>Note: Your individual responses will remain anonymous. Other LPC members will not be able to see your answers.</i>
         </p>
         <Input
           placeholder="Enter your name"
@@ -138,6 +164,7 @@ const ProjectEvaluationApp = () => {
       <CardFooter className="flex justify-end">
         <Button onClick={() => setStep(1)} disabled={!name}>Next Page</Button>
       </CardFooter>
+      {renderFooter()}
     </Card>
   );
 
@@ -147,9 +174,7 @@ const ProjectEvaluationApp = () => {
         <h1 className="text-2xl font-bold">Step 1: Project Evaluation</h1>
       </CardHeader>
       <CardContent>
-        <div className="bg-gray-800 text-sm text-white rounded-lg px-4 py-2 inline-block">
-          Project {currentProject + 1} of {projects.length}
-        </div>
+        {renderProjectDropdown()}
         <h2 className="text-xl font-bold mb-2">{projects[currentProject].title}</h2>
         <p className="text-sm mb-2">{projects[currentProject].location}</p>
         <p className="mb-4">{projects[currentProject].description}</p>
@@ -208,6 +233,7 @@ const ProjectEvaluationApp = () => {
           )}
         </div>
       </CardFooter>
+      {renderFooter()}
     </Card>
   );
 
@@ -222,13 +248,14 @@ const ProjectEvaluationApp = () => {
           On the following page, you will select which projects you want to fund. You will see a box that shows "Your Rating" for each project, on a scale of High, Medium, Low. This rating is based on the evaluation you completed in Step 1. These ratings should help inform your decision-making about which projects to fund. As you select projects, a calculator will automatically sum the total NY Forward Request amount. You will only be able to submit your survey if the total NY Forward Request amount is between $6 million to $8 million.
         </p>
         <p className="mb-4">
-        <i>Remember: This is only an exercise. Your selections in this exercise are not definitive. There will be on-going discussions at the upcoming LPC meetings to narrow down the list of projects.</i>
+          <i>Remember: This is only an exercise. Your selections in this exercise are not definitive. There will be on-going discussions at the upcoming LPC meetings to narrow down the list of projects.</i>
         </p>
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button onClick={() => setStep(1)}>Previous Page</Button>
         <Button onClick={() => setStep(3)}>Next Page</Button>
       </CardFooter>
+      {renderFooter()}
     </Card>
   );
 
@@ -254,23 +281,23 @@ const ProjectEvaluationApp = () => {
             ratingColor = 'bg-red-500';
           }
           return (
-            <div key={index} className="flex items-center justify-between mb-4 p-4 border rounded">
-              <div>
-                <h2 className="text-lg font-bold">{project.title}</h2>
-                <p className="text-sm">{project.description}</p>
-                <div className={`${ratingColor} text-white rounded px-2 py-1 inline-block mt-2`}>
+            <div key={index} className="flex flex-col mb-4 p-4 border rounded">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h2 className="text-lg font-bold">{project.title}</h2>
+                  <p className="text-sm">{project.description}</p>
+                  <p className="mt-2">NYF Request: ${project.nyfRequest.toLocaleString()}</p>
+                  <div className="mt-2">
+                    <Checkbox
+                      checked={selectedProjects.includes(projectIndex)}
+                      onCheckedChange={() => handleProjectSelection(projectIndex)}
+                    />
+                    <span className="ml-2">Fund this Project</span>
+                  </div>
+                </div>
+                <div className={`${ratingColor} text-white rounded px-2 py-1`}>
                   Your Rating: {rating}
                 </div>
-              </div>
-              <div className="flex items-center">
-                <div className="mr-4">
-                  NYF Request: ${project.nyfRequest.toLocaleString()}
-                </div>
-                <Checkbox
-                  checked={selectedProjects.includes(projectIndex)}
-                  onCheckedChange={() => handleProjectSelection(projectIndex)}
-                />
-                <span className="ml-2">Fund this Project</span>
               </div>
             </div>
           );
@@ -294,6 +321,7 @@ const ProjectEvaluationApp = () => {
           Submit
         </Button>
       </CardFooter>
+      {renderFooter()}
     </Card>
   );
 
@@ -308,3 +336,4 @@ const ProjectEvaluationApp = () => {
 };
 
 export default ProjectEvaluationApp;
+  
