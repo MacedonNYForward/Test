@@ -4,7 +4,7 @@ import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
 import { Select } from './components/ui/select';
 import { Checkbox } from './components/ui/checkbox';
-import { Check } from 'lucide-react';
+import { Dialog } from './components/ui/dialog';
 
 const projects = [
   {
@@ -60,6 +60,14 @@ const ProjectEvaluationApp = () => {
   const [projectScores, setProjectScores] = useState([]);
   const [selectedProjects, setSelectedProjects] = useState([]);
   const [totalNYFRequest, setTotalNYFRequest] = useState(0);
+  const [showWelcomeBack, setShowWelcomeBack] = useState(false);
+
+  useEffect(() => {
+    const savedProgress = localStorage.getItem('surveyProgress');
+    if (savedProgress) {
+      setShowWelcomeBack(true);
+    }
+  }, []);
 
   useEffect(() => {
     const newProjectScores = evaluations.map((evaluation) => {
@@ -78,6 +86,11 @@ const ProjectEvaluationApp = () => {
     const total = selectedProjects.reduce((sum, project) => sum + projects[project].nyfRequest, 0);
     setTotalNYFRequest(total);
   }, [selectedProjects]);
+
+  useEffect(() => {
+    const progress = { step, name, currentProject, evaluations, selectedProjects };
+    localStorage.setItem('surveyProgress', JSON.stringify(progress));
+  }, [step, name, currentProject, evaluations, selectedProjects]);
 
   const handleEvaluationChange = (criterionName, value) => {
     setEvaluations(prevEvaluations => {
@@ -100,29 +113,36 @@ const ProjectEvaluationApp = () => {
     });
   };
 
-  const isProjectEvaluated = (index) => {
-    return Object.keys(evaluations[index]).length === criteria.length;
+  const loadSavedProgress = () => {
+    const savedProgress = JSON.parse(localStorage.getItem('surveyProgress'));
+    setStep(savedProgress.step);
+    setName(savedProgress.name);
+    setCurrentProject(savedProgress.currentProject);
+    setEvaluations(savedProgress.evaluations);
+    setSelectedProjects(savedProgress.selectedProjects);
+    setShowWelcomeBack(false);
+  };
+
+  const startOver = () => {
+    localStorage.removeItem('surveyProgress');
+    setStep(0);
+    setName('');
+    setCurrentProject(0);
+    setEvaluations(projects.map(() => ({})));
+    setSelectedProjects([]);
+    setShowWelcomeBack(false);
   };
 
   const renderFooter = () => (
-    <footer className="mt-8 text-center text-gray-500">
+    <footer className="mt-8 p-4 bg-gray-100 text-gray-600 text-center mb-8">
       Webster NY Forward
     </footer>
   );
 
-  const renderProjectDropdown = () => (
-    <Select
-      value={currentProject.toString()}
-      onValueChange={(value) => setCurrentProject(Number(value))}
-      className="mb-4"
-    >
-      {projects.map((project, index) => (
-        <option key={index} value={index.toString()}>
-          Project {index + 1}: {project.title}
-          {isProjectEvaluated(index) && <Check className="inline-block ml-2" size={16} />}
-        </option>
-      ))}
-    </Select>
+  const renderProjectHeader = () => (
+    <div className="bg-gray-200 text-gray-800 rounded-lg px-4 py-2 inline-block mb-4">
+      Project {currentProject + 1} of {projects.length}
+    </div>
   );
 
   const renderIntroduction = () => (
@@ -174,7 +194,7 @@ const ProjectEvaluationApp = () => {
         <h1 className="text-2xl font-bold">Step 1: Project Evaluation</h1>
       </CardHeader>
       <CardContent>
-        {renderProjectDropdown()}
+        {renderProjectHeader()}
         <h2 className="text-xl font-bold mb-2">{projects[currentProject].title}</h2>
         <p className="text-sm mb-2">{projects[currentProject].location}</p>
         <p className="mb-4">{projects[currentProject].description}</p>
@@ -325,15 +345,31 @@ const ProjectEvaluationApp = () => {
     </Card>
   );
 
+  const renderWelcomeBackModal = () => (
+    <Dialog
+      isOpen={showWelcomeBack}
+      onClose={() => setShowWelcomeBack(false)}
+      title="Welcome Back!"
+    >
+      <p>We noticed you have a saved survey in progress. What would you like to do?</p>
+      <div className="mt-4 flex justify-end space-x-2">
+        <Button onClick={loadSavedProgress}>Pick up where I left off</Button>
+        <Button onClick={startOver} variant="outline">Start over from the beginning</Button>
+      </div>
+    </Dialog>
+  );
+
   return (
     <div className="container mx-auto p-4">
-      {step === 0 && renderIntroduction()}
-      {step === 1 && renderProjectEvaluation()}
-      {step === 2 && renderProjectSelectionInstruction()}
-      {step === 3 && renderProjectSelection()}
+      {renderWelcomeBackModal()}
+      <div className="w-full max-w-4xl mx-auto">
+        {step === 0 && renderIntroduction()}
+        {step === 1 && renderProjectEvaluation()}
+        {step === 2 && renderProjectSelectionInstruction()}
+        {step === 3 && renderProjectSelection()}
+      </div>
     </div>
   );
 };
 
 export default ProjectEvaluationApp;
-  
