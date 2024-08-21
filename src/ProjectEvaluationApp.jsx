@@ -4,7 +4,6 @@ import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
 import { Select } from './components/ui/select';
 import { Checkbox } from './components/ui/checkbox';
-import { Dialog } from './components/ui/dialog';
 
 const projects = [
   {
@@ -60,14 +59,6 @@ const ProjectEvaluationApp = () => {
   const [projectScores, setProjectScores] = useState([]);
   const [selectedProjects, setSelectedProjects] = useState([]);
   const [totalNYFRequest, setTotalNYFRequest] = useState(0);
-  const [showWelcomeBack, setShowWelcomeBack] = useState(false);
-
-  useEffect(() => {
-    const savedProgress = localStorage.getItem('surveyProgress');
-    if (savedProgress) {
-      setShowWelcomeBack(true);
-    }
-  }, []);
 
   useEffect(() => {
     const newProjectScores = evaluations.map((evaluation) => {
@@ -86,11 +77,6 @@ const ProjectEvaluationApp = () => {
     const total = selectedProjects.reduce((sum, project) => sum + projects[project].nyfRequest, 0);
     setTotalNYFRequest(total);
   }, [selectedProjects]);
-
-  useEffect(() => {
-    const progress = { step, name, currentProject, evaluations, selectedProjects };
-    localStorage.setItem('surveyProgress', JSON.stringify(progress));
-  }, [step, name, currentProject, evaluations, selectedProjects]);
 
   const handleEvaluationChange = (criterionName, value) => {
     setEvaluations(prevEvaluations => {
@@ -111,26 +97,6 @@ const ProjectEvaluationApp = () => {
         return [...prevSelected, index];
       }
     });
-  };
-
-  const loadSavedProgress = () => {
-    const savedProgress = JSON.parse(localStorage.getItem('surveyProgress'));
-    setStep(savedProgress.step);
-    setName(savedProgress.name);
-    setCurrentProject(savedProgress.currentProject);
-    setEvaluations(savedProgress.evaluations);
-    setSelectedProjects(savedProgress.selectedProjects);
-    setShowWelcomeBack(false);
-  };
-
-  const startOver = () => {
-    localStorage.removeItem('surveyProgress');
-    setStep(0);
-    setName('');
-    setCurrentProject(0);
-    setEvaluations(projects.map(() => ({})));
-    setSelectedProjects([]);
-    setShowWelcomeBack(false);
   };
 
   const renderFooter = () => (
@@ -195,37 +161,42 @@ const ProjectEvaluationApp = () => {
       </CardHeader>
       <CardContent>
         {renderProjectHeader()}
-        <h2 className="text-xl font-bold mb-2">{projects[currentProject].title}</h2>
-        <p className="text-sm mb-2">{projects[currentProject].location}</p>
-        <p className="mb-4">{projects[currentProject].description}</p>
-        <p className="mb-4">NYF Request: ${projects[currentProject].nyfRequest.toLocaleString()}</p>
-        {criteria.map((criterion) => (
-          <div key={criterion.name} className="mb-4">
-            <label className="block mb-2">
-              <span className="font-bold">{criterion.name}</span>
-              <p className="text-sm text-gray-600">{criterion.description}</p>
-            </label>
-            <Select
-              value={evaluations[currentProject][criterion.name] || ''}
-              onValueChange={(value) => handleEvaluationChange(criterion.name, value)}
-            >
-              <option value="">Select...</option>
-              {criterion.name === 'Alignment with State Goals' ? (
-                <>
-                  <option value="High">High – Aligns with many State goals</option>
-                  <option value="Medium">Medium – Aligns with a few state goals</option>
-                  <option value="Low">Low – Does not align with State goals</option>
-                </>
-              ) : (
-                <>
-                  <option value="High">High</option>
-                  <option value="Medium">Medium</option>
-                  <option value="Low">Low</option>
-                </>
-              )}
-            </Select>
-          </div>
-        ))}
+        <div className="bg-gray-100 p-4 rounded-lg mb-6">
+          <h2 className="text-xl font-bold mb-2">{projects[currentProject].title}</h2>
+          <p className="text-sm font-semibold mb-2">Location: {projects[currentProject].location}</p>
+          <p className="mb-4">{projects[currentProject].description}</p>
+          <p className="font-semibold">NYF Request: ${projects[currentProject].nyfRequest.toLocaleString()}</p>
+        </div>
+        <div className="mt-6">
+          <h3 className="text-lg font-bold mb-4">Evaluation Criteria</h3>
+          {criteria.map((criterion) => (
+            <div key={criterion.name} className="mb-4">
+              <label className="block mb-2">
+                <span className="font-bold">{criterion.name}</span>
+                <p className="text-sm text-gray-600">{criterion.description}</p>
+              </label>
+              <Select
+                value={evaluations[currentProject][criterion.name] || ''}
+                onValueChange={(value) => handleEvaluationChange(criterion.name, value)}
+              >
+                <option value="">Select...</option>
+                {criterion.name === 'Alignment with State Goals' ? (
+                  <>
+                    <option value="High">High – Aligns with many State goals</option>
+                    <option value="Medium">Medium – Aligns with a few state goals</option>
+                    <option value="Low">Low – Does not align with State goals</option>
+                  </>
+                ) : (
+                  <>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </>
+                )}
+              </Select>
+            </div>
+          ))}
+        </div>
       </CardContent>
       <CardFooter className="flex justify-between">
         <div>
@@ -345,23 +316,8 @@ const ProjectEvaluationApp = () => {
     </Card>
   );
 
-  const renderWelcomeBackModal = () => (
-    <Dialog
-      isOpen={showWelcomeBack}
-      onClose={() => setShowWelcomeBack(false)}
-      title="Welcome Back!"
-    >
-      <p>We noticed you have a saved survey in progress. What would you like to do?</p>
-      <div className="mt-4 flex justify-end space-x-2">
-        <Button onClick={loadSavedProgress}>Pick up where I left off</Button>
-        <Button onClick={startOver} variant="outline">Start over from the beginning</Button>
-      </div>
-    </Dialog>
-  );
-
   return (
     <div className="container mx-auto p-4">
-      {renderWelcomeBackModal()}
       <div className="w-full max-w-4xl mx-auto">
         {step === 0 && renderIntroduction()}
         {step === 1 && renderProjectEvaluation()}
@@ -373,3 +329,4 @@ const ProjectEvaluationApp = () => {
 };
 
 export default ProjectEvaluationApp;
+
