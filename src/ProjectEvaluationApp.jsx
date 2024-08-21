@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Card, CardHeader, CardContent, CardFooter } from './components/ui/card';
 import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
@@ -99,16 +100,33 @@ const ProjectEvaluationApp = () => {
     });
   };
 
+  const submitData = async () => {
+    const dataToSubmit = [
+      name,
+      ...projects.map((project, index) => ({
+        title: project.title,
+        selected: selectedProjects.includes(index),
+        ...evaluations[index]
+      }))
+    ];
+
+    try {
+      const response = await axios.post('https://script.google.com/macros/s/AKfycbxdCVmLQ6BTWw-DRknhP2ZlYdLElwc7OU7C_SQ9CO9t2LqV932BKHY4Nz8Pb_wTwx-DmQ/exec', dataToSubmit);
+      if (response.data.result === 'success') {
+        alert('Data submitted successfully!');
+      } else {
+        alert('Error submitting data. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error submitting data. Please try again.');
+    }
+  };
+
   const renderFooter = () => (
     <footer className="mt-8 p-4 bg-gray-100 text-gray-600 text-center mb-8">
       Webster NY Forward
     </footer>
-  );
-
-  const renderProjectHeader = () => (
-    <div className="bg-gray-200 text-gray-800 rounded-lg px-4 py-2 inline-block mb-4">
-      Project {currentProject + 1} of {projects.length}
-    </div>
   );
 
   const renderIntroduction = () => (
@@ -303,10 +321,7 @@ const ProjectEvaluationApp = () => {
       <CardFooter className="flex justify-between">
         <Button onClick={() => setStep(2)}>Previous Page</Button>
         <Button
-          onClick={() => {
-            // Here you would typically submit the data to a backend
-            alert('Survey submitted successfully!');
-          }}
+          onClick={submitData}
           disabled={totalNYFRequest < 6000000 || totalNYFRequest > 8000000}
         >
           Submit
@@ -329,4 +344,3 @@ const ProjectEvaluationApp = () => {
 };
 
 export default ProjectEvaluationApp;
-
