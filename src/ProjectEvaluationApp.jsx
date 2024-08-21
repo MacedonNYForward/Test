@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -66,7 +65,10 @@ const ProjectEvaluationApp = () => {
     const newProjectScores = evaluations.map((evaluation) => {
       let score = 0;
       criteria.forEach((criterion) => {
+        console.log('evaluation', evaluation);
+        console.log('criterion', criterion);
         if (evaluation[criterion.name]) {
+          console.log('evaluation[criterion.name]', evaluation[criterion.name]);
           score += (evaluation[criterion.name] === 'High' ? 3 : evaluation[criterion.name] === 'Medium' ? 2 : 1) * criterion.weight;
         }
       });
@@ -76,6 +78,7 @@ const ProjectEvaluationApp = () => {
   }, [evaluations]);
 
   useEffect(() => {
+    console.log('selectedProjects', selectedProjects);
     const total = selectedProjects.reduce((sum, project) => sum + projects[project].nyfRequest, 0);
     setTotalNYFRequest(total);
   }, [selectedProjects]);
