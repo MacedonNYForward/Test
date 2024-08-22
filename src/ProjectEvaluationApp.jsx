@@ -184,7 +184,6 @@ const ProjectEvaluationApp = () => {
         <h1 className="text-2xl font-bold">Step 1: Project Evaluation</h1>
       </CardHeader>
       <CardContent>
-        {renderProjectHeader()}
         <div className="bg-gray-100 p-4 rounded-lg mb-6">
           <h2 className="text-xl font-bold mb-2">{projects[currentProject].title}</h2>
           <p className="text-sm font-semibold mb-2">Location: {projects[currentProject].location}</p>
@@ -350,3 +349,4 @@ const ProjectEvaluationApp = () => {
 };
 
 export default ProjectEvaluationApp;
+
