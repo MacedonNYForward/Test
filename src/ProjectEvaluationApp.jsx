@@ -100,7 +100,8 @@ const ProjectEvaluationApp = () => {
     });
   };
 
-  const submitData = async () => {
+    const submitData = async () => {
+      console.log('Google Script URL:', process.env.REACT_APP_GOOGLE_SCRIPT_URL);
     const dataToSubmit = [
       name,
       ...projects.map((project, index) => ({
