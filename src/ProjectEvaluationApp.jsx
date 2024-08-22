@@ -62,24 +62,20 @@ const ProjectEvaluationApp = () => {
   const [totalNYFRequest, setTotalNYFRequest] = useState(0);
 
   useEffect(() => {
-    const newProjectScores = evaluations.map((evaluation) => {
+    const newProjectScores = evaluations.map((evaluation, index) => {
       let score = 0;
       criteria.forEach((criterion) => {
-        console.log('evaluation', evaluation);
-        console.log('criterion', criterion);
         if (evaluation[criterion.name]) {
-          console.log('evaluation[criterion.name]', evaluation[criterion.name]);
           score += (evaluation[criterion.name] === 'High' ? 3 : evaluation[criterion.name] === 'Medium' ? 2 : 1) * criterion.weight;
         }
       });
-      return score;
+      return { score, index };
     });
     setProjectScores(newProjectScores);
   }, [evaluations]);
 
   useEffect(() => {
-    console.log('selectedProjects', selectedProjects);
-    const total = selectedProjects.reduce((sum, project) => sum + projects[project].nyfRequest, 0);
+    const total = selectedProjects.reduce((sum, projectIndex) => sum + projects[projectIndex].nyfRequest, 0);
     setTotalNYFRequest(total);
   }, [selectedProjects]);
 
@@ -279,43 +275,40 @@ const ProjectEvaluationApp = () => {
         <h1 className="text-2xl font-bold">Step 2: Project Selection</h1>
       </CardHeader>
       <CardContent>
-        {projects.sort((a, b) => projectScores[projects.indexOf(b)] - projectScores[projects.indexOf(a)]).map((project, index) => {
-          const projectIndex = projects.indexOf(project);
-          const score = projectScores[projectIndex];
-          let rating;
-          let ratingColor;
-          if (score >= 13) {
-            rating = 'High';
-            ratingColor = 'bg-green-500';
-          } else if (score >= 7) {
-            rating = 'Medium';
-            ratingColor = 'bg-yellow-500';
-          } else {
-            rating = 'Low';
-            ratingColor = 'bg-red-500';
-          }
-          return (
-            <div key={index} className="flex flex-col mb-4 p-4 border rounded">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h2 className="text-lg font-bold">{project.title}</h2>
-                  <p className="text-sm">{project.description}</p>
-                  <p className="mt-2">NYF Request: ${project.nyfRequest.toLocaleString()}</p>
-                  <div className="mt-2">
-                    <Checkbox
-                      checked={selectedProjects.includes(projectIndex)}
-                      onCheckedChange={() => handleProjectSelection(projectIndex)}
-                    />
-                    <span className="ml-2">Fund this Project</span>
-                  </div>
-                </div>
-                <div className={`${ratingColor} text-white rounded px-2 py-1`}>
+        {projectScores
+          .sort((a, b) => b.score - a.score)
+          .map(({ score, index }) => {
+            const project = projects[index];
+            let rating;
+            let ratingColor;
+            if (score >= 13) {
+              rating = 'High';
+              ratingColor = 'bg-green-500';
+            } else if (score >= 7) {
+              rating = 'Medium';
+              ratingColor = 'bg-yellow-500';
+            } else {
+              rating = 'Low';
+              ratingColor = 'bg-red-500';
+            }
+            return (
+              <div key={index} className="flex flex-col mb-4 p-4 border rounded">
+                <div className={`${ratingColor} text-white rounded px-2 py-1 mb-2 inline-block`}>
                   Your Rating: {rating}
                 </div>
+                <h2 className="text-lg font-bold">{project.title}</h2>
+                <p className="text-sm">{project.description}</p>
+                <p className="mt-2">NYF Request: ${project.nyfRequest.toLocaleString()}</p>
+                <div className="mt-2">
+                  <Checkbox
+                    checked={selectedProjects.includes(index)}
+                    onCheckedChange={() => handleProjectSelection(index)}
+                  />
+                  <span className="ml-2">Fund this Project</span>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
         <div className={`mt-4 p-4 rounded ${totalNYFRequest >= 6000000 && totalNYFRequest <= 8000000 ? 'bg-green-100' : 'bg-red-100'}`}>
           <p className="font-bold">Total NY Forward Request: ${totalNYFRequest.toLocaleString()}</p>
           {(totalNYFRequest < 6000000 || totalNYFRequest > 8000000) && (
