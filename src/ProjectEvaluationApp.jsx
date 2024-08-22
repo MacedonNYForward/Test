@@ -181,6 +181,7 @@ const ProjectEvaluationApp = () => {
       </CardHeader>
       <CardContent>
         <div className="bg-gray-100 p-4 rounded-lg mb-6">
+          <p className="text-sm font-semibold mb-2">Project {currentProject + 1} of {projects.length}</p>
           <h2 className="text-xl font-bold mb-2">{projects[currentProject].title}</h2>
           <p className="text-sm font-semibold mb-2">Location: {projects[currentProject].location}</p>
           <p className="mb-4">{projects[currentProject].description}</p>
@@ -293,8 +294,10 @@ const ProjectEvaluationApp = () => {
             }
             return (
               <div key={index} className="flex flex-col mb-4 p-4 border rounded">
-                <div className={`${ratingColor} text-white rounded px-2 py-1 mb-2 inline-block`}>
-                  Your Rating: {rating}
+                <div className="flex justify-between items-start mb-2">
+                  <div className={`${ratingColor} text-white rounded px-2 py-1 text-sm inline-block`}>
+                    Your Rating: {rating}
+                  </div>
                 </div>
                 <h2 className="text-lg font-bold">{project.title}</h2>
                 <p className="text-sm">{project.description}</p>
