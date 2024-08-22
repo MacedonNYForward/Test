@@ -113,9 +113,14 @@ const ProjectEvaluationApp = () => {
     ];
 
     try {
-      const response = await axios.post('https://script.google.com/macros/s/AKfycbyUky9HGq6RGi5LKvpCX0q4hoodvJbc515bTM2Sqj9ZuTkg_VI05GFNdQoTSRXxftYxbA/exec', dataToSubmit);
+      const response = await axios.post(process.env.REACT_APP_GOOGLE_SCRIPT_URL, dataToSubmit, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
       if (response.data.result === 'success') {
         alert('Data submitted successfully!');
+        // Optionally, reset the form or navigate to a completion page
       } else {
         alert('Error submitting data. Please try again.');
       }
