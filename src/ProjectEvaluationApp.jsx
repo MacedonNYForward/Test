@@ -100,27 +100,22 @@ const ProjectEvaluationApp = () => {
     });
   };
 
-    const submitData = async () => {
-      console.log('Google Script URL:', process.env.REACT_APP_GOOGLE_SCRIPT_URL);
-    const dataToSubmit = [
+  const submitData = async () => {
+    const dataToSubmit = {
       name,
-      ...projects.map((project, index) => ({
+      evaluations: projects.map((project, index) => ({
         title: project.title,
         location: project.location,
         nyfRequest: project.nyfRequest,
         selected: selectedProjects.includes(index),
-        ...evaluations[index]
+        criteriaEvaluations: evaluations[index]
       }))
-    ];
+    };
 
     try {
-      const response = await axios.post(process.env.REACT_APP_GOOGLE_SCRIPT_URL, dataToSubmit, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      if (response.data.result === 'success') {
-        alert('Data submitted successfully!');
+      const response = await axios.post('https://survey-backend-cwrv.onrender.com/api/evaluations', dataToSubmit);
+      if (response.status === 201) {
+        alert('Data submitted successfully! You can now close this page.');
         // Optionally, reset the form or navigate to a completion page
       } else {
         alert('Error submitting data. Please try again.');
