@@ -154,6 +154,11 @@ const ProjectEvaluationApp = () => {
         <p className="mb-4">
           This survey will walk you through a two-step process for evaluating the proposed projects. It is designed to help you identify the projects you think are most competitive for funding, in addition to the projects that could be removed from consideration.
         </p>
+        <div className="bg-yellow-100 border-l-4 border-yellow-500 text-black p-4 mb-4">
+          <p className="text-base">
+            <strong>Important:</strong> Please complete this survey in one sitting. It should take you approximately 30 minutes to complete. Your progress will NOT be saved if you close this window before submitting the survey.
+          </p>
+        </div>
         <p className="mb-4">
           <strong>Step 1:</strong> You will evaluate each project based on how well it aligns with the evaluation criteria established by the State and the LPC, using a scale of High, Medium, Low. Your answers will be aggregated and used to sort each project into three categories: High Rating projects that you scored the highest, Medium Rating projects that you scored moderately-well, and Low Rating projects that you scored the lowest.
         </p>
@@ -165,7 +170,7 @@ const ProjectEvaluationApp = () => {
         </p>
         <h2 className="text-xl font-bold mb-2">How We Will Use This Data</h2>
         <p className="mb-4">
-          The evaluations from all LPC members will be aggregated to create an overall rating for each project, either High, Medium, or Low. At LPC Meeting 5, we will present which projects fell into each of the High Rating, Medium Rating, and Low Rating categories. This will help the LPC make decisions about which projects to keep under consideration for potential funding and which projects could be removed. 
+          The evaluations from all LPC members will be aggregated to create an overall rating for each project, either High, Medium, or Low. At LPC Meeting 5, we will present which projects fell into each of these categories. This will help the LPC make decisions about which projects to keep under consideration for potential funding and which projects could be removed. 
         </p>
         <p className="mb-4">
           <i>Note: Your individual responses will remain anonymous. Other LPC members will not be able to see your answers.</i>
