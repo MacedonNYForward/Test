@@ -62,6 +62,10 @@ const ProjectEvaluationApp = () => {
   const [totalNYFRequest, setTotalNYFRequest] = useState(0);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [step, currentProject]);
+
+  useEffect(() => {
     const newProjectScores = evaluations.map((evaluation, index) => {
       let score = 0;
       criteria.forEach((criterion) => {
@@ -126,6 +130,14 @@ const ProjectEvaluationApp = () => {
     }
   };
 
+  const handleStepChange = (newStep) => {
+    setStep(newStep);
+  };
+
+  const handleProjectChange = (newProject) => {
+    setCurrentProject(newProject);
+  };
+
   const renderFooter = () => (
     <footer className="mt-8 p-4 bg-gray-100 text-gray-600 text-center mb-8">
       Webster NY Forward
@@ -169,7 +181,7 @@ const ProjectEvaluationApp = () => {
         </p>
       </CardContent>
       <CardFooter className="flex justify-end">
-        <Button onClick={() => setStep(1)} disabled={!name}>Next Page</Button>
+        <Button onClick={() => handleStepChange(1)} disabled={!name}>Next Page</Button>
       </CardFooter>
       {renderFooter()}
     </Card>
@@ -222,22 +234,22 @@ const ProjectEvaluationApp = () => {
       <CardFooter className="flex justify-between">
         <div>
           {currentProject > 0 ? (
-            <Button onClick={() => setCurrentProject(currentProject - 1)}>Previous Project</Button>
+            <Button onClick={() => handleProjectChange(currentProject - 1)}>Previous Project</Button>
           ) : (
-            <Button onClick={() => setStep(0)}>Previous Page</Button>
+            <Button onClick={() => handleStepChange(0)}>Previous Page</Button>
           )}
         </div>
         <div>
           {currentProject < projects.length - 1 ? (
             <Button
-              onClick={() => setCurrentProject(currentProject + 1)}
+              onClick={() => handleProjectChange(currentProject + 1)}
               disabled={Object.keys(evaluations[currentProject]).length !== criteria.length}
             >
               Next Project
             </Button>
           ) : (
             <Button
-              onClick={() => setStep(2)}
+              onClick={() => handleStepChange(2)}
               disabled={Object.keys(evaluations[currentProject]).length !== criteria.length}
             >
               Next Page
@@ -264,8 +276,8 @@ const ProjectEvaluationApp = () => {
         </p>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button onClick={() => setStep(1)}>Previous Page</Button>
-        <Button onClick={() => setStep(3)}>Next Page</Button>
+        <Button onClick={() => handleStepChange(1)}>Previous Page</Button>
+        <Button onClick={() => handleStepChange(3)}>Next Page</Button>
       </CardFooter>
       {renderFooter()}
     </Card>
@@ -283,7 +295,7 @@ const ProjectEvaluationApp = () => {
             const project = projects[index];
             let rating;
             let ratingColor;
-            if (score >= 13) {
+if (score >= 13) {
               rating = 'High';
               ratingColor = 'bg-green-500';
             } else if (score >= 7) {
@@ -321,7 +333,7 @@ const ProjectEvaluationApp = () => {
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button onClick={() => setStep(2)}>Previous Page</Button>
+        <Button onClick={() => handleStepChange(2)}>Previous Page</Button>
         <Button
           onClick={submitData}
           disabled={totalNYFRequest < 6000000 || totalNYFRequest > 8000000}
@@ -346,4 +358,3 @@ const ProjectEvaluationApp = () => {
 };
 
 export default ProjectEvaluationApp;
-
