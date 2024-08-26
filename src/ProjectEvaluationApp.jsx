@@ -267,7 +267,7 @@ const ProjectEvaluationApp = () => {
         </p>
         <div className="bg-yellow-100 border-l-4 border-yellow-500 text-black p-4 mb-4">
           <p className="text-base">
-            <strong>Important:</strong> Please complete this survey in one sitting. It should take you approximately 30 minutes to complete. Your progress will NOT be saved if you close this window before submitting the survey.
+            <strong>Important:</strong> Please complete this survey in one sitting. It should take you approximately 30 minutes to complete. Your progress will NOT be saved if you close or refresh this window before submitting the survey.
           </p>
         </div>
         <p className="mb-4">
