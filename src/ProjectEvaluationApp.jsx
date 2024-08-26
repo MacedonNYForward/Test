@@ -411,10 +411,10 @@ const ProjectEvaluationApp = () => {
             const project = projects[index];
             let rating;
             let ratingColor;
-            if (score >= 15) {
+            if (score >= 14) {
               rating = 'High';
               ratingColor = 'bg-green-500';
-            } else if (score >= 10) {
+            } else if (score >= 11) {
               rating = 'Medium';
               ratingColor = 'bg-yellow-500';
             } else {
