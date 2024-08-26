@@ -9,33 +9,143 @@ import axios from 'axios';
 const projects = [
   {
     title: "Enhance Veterans Memorial Park for Events and Community Use",
-    description: "Create signature performance structure, relocate and enhance memorial, and improve access and circulation through the park",
+    description: "Create signature performance structure, relocate and enhance memorial, and improve access and circulation through the park.",
     location: "28 North Ave.",
-    nyfRequest: 1700000
+    nyfRequest: 1700000,
+    percentOfTotal: 100
   },
   {
-    title: "Create a sense of place through Streetscape Enhancements on Main Street",
-    description: "Enhance crosswalks, lighting, and sidewalks on Main Street from Corning Park to Kircher Park",
-    location: "Main Street",
-    nyfRequest: 1300000
+    title: "Create a Sense of Place through Streetscape Enhancements on Main Street",
+    description: "Enhance crosswalks, lighting, and sidewalks on Main Street from Corning Park to Kircher Park.",
+    location: "Main Street, from Corning Park to Kircher Park",
+    nyfRequest: 1300000,
+    percentOfTotal: 100
   },
   {
     title: "Create a Celebration Plaza and Village Market Square",
-    description: "Transform entry drive into Celebration Plaza adjacent to Village Office that acts as a public gathering space and gateway to flexible open space for markets and events.",
+    description: "Transform the entry drive into a Celebration Plaza adjacent to the Village Office that acts as a public gathering space and gateway to a flexible open space for markets and events.",
     location: "28 West Main St.",
-    nyfRequest: 1125000
+    nyfRequest: 1125000,
+    percentOfTotal: 100
   },
   {
     title: "Establish Harmony Square on Main Street",
-    description: "Create a flexible open space adjacent to Harmony House that incorporates public art and ties in to a connected network of public spaces",
+    description: "Create a flexible open space adjacent to Harmony House that incorporates public art and ties into a connected network of public spaces.",
     location: "58 East Main St.",
-    nyfRequest: 325000
+    nyfRequest: 325000,
+    percentOfTotal: 100
   },
   {
     title: "Create a Hojack Trail Gateway and Enhance the Trail",
-    description: "Add amenities and enhance the crossing at North Avenue; pave the trail from Phillips Road to western Village boundary and add lighting, landscaping, and benches",
+    description: "Add amenities and enhance the crossing at North Avenue. Pave the trail from Phillips Road to western Village boundary and add lighting, landscaping, and benches.",
     location: "Hojack Trail",
-    nyfRequest: 2052000
+    nyfRequest: 1323000,
+    percentOfTotal: 100
+  },
+  {
+    title: "Enhance the North Avenue Streetscape",
+    description: "Add trees, lighting, and a high-visibility green bike lane to North Avenue between the Route 104 bridge and Orchard Street.",
+    location: "North Avenue, from the Route 104 bridge to Orchard Street",
+    nyfRequest: 350000,
+    percentOfTotal: 100
+  },
+  {
+    title: "Enhance the Visitor Experience through Wayfinding Signage",
+    description: "Add gateway sign at Main Street and Barrett Drive. Install parking wayfinding signs (8) and informational kiosks (2) in parking lots.",
+    location: "Downtown Webster",
+    nyfRequest: 408000,
+    percentOfTotal: 100
+  },
+  {
+    title: "Enhance the Exterior of Salvatore's Pizzeria",
+    description: "Enhance Salvatore's Pizza through exterior upgrades including patio space, furniture, windows, siding, and repairs to existing sign.",
+    location: "195 North Ave.",
+    nyfRequest: 104000,
+    percentOfTotal: 74
+  },
+  {
+    title: "Create Residential and Mixed-use Commercial Space at 150 Orchard Street and 102-108 Commercial Street",
+    description: "Expand on prior investments at 150 Orchard St. by converting the third floor into 8 lofts. Repurpose Commercial St. property into mixed-use spaces and access to the Hojack Trail.",
+    location: "150 Orchard St. and 108 A, B, C Commercial St.",
+    nyfRequest: 500000,
+    percentOfTotal: 33
+  },
+  {
+    title: "Renovate Immanuel Lutheran Church to Enhance the Exterior and Support Community Use",
+    description: "Enhance the church through façade and stained glass upgrades, heating and cooling, and renovations to community rooms and kitchen for community use.",
+    location: "131 W. Main St.",
+    nyfRequest: 159000,
+    percentOfTotal: 50
+  },
+  {
+    title: "Create a Multi-purpose Conservatory at Kittelberger Florist & Gifts and Install Rooftop Solar Panels",
+    description: "Complement existing retail space with a 1,350 sf conservatory to be used to cultivate plants, as a café space, and for workshops, tours, and educational programs. Install 327 rooftop solar panels (137kW estimated) to reduce carbon footprint and energy costs and contribute to community sustainability.",
+    location: "263 North Ave.",
+    nyfRequest: 505000,
+    percentOfTotal: 44
+  },
+  {
+    title: "Modernize 39 W. Main St. for Future Tenants through Façade and Interior Renovations",
+    description: "Adapt first floor to meet ADA standards and create open-space floor plan to increase Main Street visibility for future tenants.",
+    location: "39 W. Main St.",
+    nyfRequest: 72000,
+    percentOfTotal: 50
+  },
+  {
+    title: "Expand Lattimore Physical Therapy to Optimize Orthopedic Care Space",
+    description: "Construct 3,000-4,000 sf single-story pole barn addition to create open concept orthopedic treatment space with 1-2 treatment rooms.",
+    location: "70 Barrett Dr.",
+    nyfRequest: 300000,
+    percentOfTotal: 38
+  },
+  {
+    title: "Renovate Second Story Office Space and Create Vertical Connections at Foley Insurance",
+    description: "Expand office capacity through second floor renovation (560 sf) and creation of better connection through an open stair in order to allow Foley Insurance to stay in the Village while expanding staff.",
+    location: "9 E. Main St.",
+    nyfRequest: 120000,
+    percentOfTotal: 68
+  },
+  {
+    title: "Renovate Interior of 7 South Ave. for Retail Use",
+    description: "Renovate 700 sf interior space for use as a potential retail/clothing store.",
+    location: "7 South Ave.",
+    nyfRequest: 71000,
+    percentOfTotal: 50
+  },
+  {
+    title: "Renovate Harmony House for Performances and Events",
+    description: "Update the historic Harmony House to optimize the space for performances and events, including ADA-compliant access, circulation, and restrooms along with heating and cooling.",
+    location: "58 E. Main St.",
+    nyfRequest: 861000,
+    percentOfTotal: 100
+  },
+  {
+    title: "Create a New Village Center at 82 East Main Street",
+    description: "Create a mixed-use destination including a renovated 10,000 sf office building, a 15,000 sf brewery/event space, and retail with upgraded parking and circulation through the site.",
+    location: "82 E. Main St.",
+    nyfRequest: 650000,
+    percentOfTotal: 50
+  },
+  {
+    title: "Convert Retail/Office Space to Apartments at 22 and 28 E. Main St.",
+    description: "Convert second floor retail and office space into 2 apartments to enhance likelihood of occupancy, including building kitchens and bathrooms.",
+    location: "22 and 28 E. Main St.",
+    nyfRequest: 69000,
+    percentOfTotal: 75
+  },
+  {
+    title: "Invest in Marketing for Downtown Webster",
+    description: "Develop digital marketing content, a mobile app, and print collateral to promote downtown Webster and enhance awareness of businesses.",
+    location: "Downtown Webster",
+    nyfRequest: 75000,
+    percentOfTotal: 88
+  },
+  {
+    title: "Establish a Small Project Grant Fund",
+    description: "Establish a small grant fund to support smaller-scale projects like façade improvements. The fund would be locally administered and involves another competitive application process.",
+    location: "Downtown Webster",
+    nyfRequest: 600000,
+    percentOfTotal: 75
   }
 ];
 
@@ -111,6 +221,7 @@ const ProjectEvaluationApp = () => {
         title: project.title,
         location: project.location,
         nyfRequest: project.nyfRequest,
+        percentOfTotal: project.percentOfTotal,
         selected: selectedProjects.includes(index),
         criteriaEvaluations: evaluations[index]
       }))
@@ -170,7 +281,7 @@ const ProjectEvaluationApp = () => {
         </p>
         <h2 className="text-xl font-bold mb-2">How We Will Use This Data</h2>
         <p className="mb-4">
-          The evaluations from all LPC members will be aggregated to create an overall rating for each project, either High, Medium, or Low. At LPC Meeting 5, we will present which projects fell into each of these categories. This will help the LPC make decisions about which projects to keep under consideration for potential funding and which projects could be removed. 
+          The evaluations from all LPC members will be aggregated to create an overall rating for each project, either High, Medium, or Low. At LPC Meeting 5, we will present which projects fell into each category. This will help the LPC make decisions about which projects to keep under consideration for potential funding and which projects could be removed. 
         </p>
         <p className="mb-4">
           <i>Note: Your individual responses will remain anonymous. Other LPC members will not be able to see your answers.</i>
@@ -203,7 +314,7 @@ const ProjectEvaluationApp = () => {
           <h2 className="text-xl font-bold mb-2">{projects[currentProject].title}</h2>
           <p className="text-sm font-semibold mb-2">Location: {projects[currentProject].location}</p>
           <p className="mb-4">{projects[currentProject].description}</p>
-          <p className="font-semibold">NYF Request: ${projects[currentProject].nyfRequest.toLocaleString()}</p>
+          <p className="font-semibold">NYF Request: ${projects[currentProject].nyfRequest.toLocaleString()} ({projects[currentProject].percentOfTotal}% of total cost)</p>
         </div>
         <div className="mt-6">
           <h3 className="text-lg font-bold mb-4">Evaluation Criteria</h3>
@@ -300,7 +411,7 @@ const ProjectEvaluationApp = () => {
             const project = projects[index];
             let rating;
             let ratingColor;
-if (score >= 13) {
+            if (score >= 13) {
               rating = 'High';
               ratingColor = 'bg-green-500';
             } else if (score >= 7) {
@@ -319,7 +430,7 @@ if (score >= 13) {
                 </div>
                 <h2 className="text-lg font-bold">{project.title}</h2>
                 <p className="text-sm">{project.description}</p>
-                <p className="mt-2">NYF Request: ${project.nyfRequest.toLocaleString()}</p>
+                <p className="mt-2">NYF Request: ${project.nyfRequest.toLocaleString()} ({project.percentOfTotal}% of total cost)</p>
                 <div className="mt-2">
                   <Checkbox
                     checked={selectedProjects.includes(index)}
