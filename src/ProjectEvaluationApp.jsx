@@ -44,7 +44,7 @@ const projects = [
   },
   {
     title: "Enhance the North Avenue Streetscape",
-    description: "Add trees, lighting, and a high-visibility green bike lane to North Avenue between the Route 104 bridge and Orchard Street.",
+    description: "Add trees, lighting, and a high-visibility green bike lane to North Avenue between the Route 104 bridge and Orchard Street. Note: Per LPC feedback, this project would include artistic lighting to create a visual connection between the North End Business District and the Main Street Business District.",
     location: "North Avenue, from the Route 104 bridge to Orchard Street",
     nyfRequest: 350000,
     percentOfTotal: 100
