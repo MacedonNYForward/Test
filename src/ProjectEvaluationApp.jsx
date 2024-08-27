@@ -79,7 +79,7 @@ const projects = [
   },
   {
     title: "Create a Multi-purpose Conservatory at Kittelberger Florist & Gifts and Install Rooftop Solar Panels",
-    description: "Complement existing retail space with a 1,350 sf conservatory to be used to cultivate plants, as a café space, and for workshops, tours, and educational programs. Install 327 rooftop solar panels (137kW estimated) to reduce carbon footprint and energy costs and contribute to community sustainability.",
+    description: "Complement existing retail space with a 1,350 sf conservatory to be used to cultivate plants, as a café space, and for workshops, tours, and educational programs. Install 327 rooftop solar panels (137kW estimated) to reduce carbon footprint and energy costs and contribute to community sustainability. Note: The two projects submitted for 263 North Avenue (Conservatory and Rooftop Solar) were combined into this one project.",
     location: "263 North Ave.",
     nyfRequest: 505000,
     percentOfTotal: 44
